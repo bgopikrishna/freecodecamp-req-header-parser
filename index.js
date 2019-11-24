@@ -10,11 +10,7 @@ app.get("/", (req, res) => {
   });
 
 app.get("/api/whoami", (req, res) => {
-    let output = {
-        ipaddress: req.ip,
-        language: req.headers["accept-language"],
-        software: req.headers["user-agent"]
-        }
+    let output = parseHeader(req);
     res.send(output)
 });
 
@@ -22,3 +18,14 @@ const port = process.env.PORT || 3000;
 const listener = app.listen(port, function() {
   console.log("Your app is listening on port " + listener.address().port);
 });
+
+
+function parseHeader(req) {
+    let output = {
+        ipaddress: req.ip.substr(7),
+        language: req.headers["accept-language"],
+        software: req.headers["user-agent"]
+    };
+    return output;
+}
+
