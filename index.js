@@ -6,6 +6,10 @@ const app = express();
 app.use(cors({ optionSuccessStatus: 200 }));
 
 app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/views/index.html");
+  });
+
+app.get("/api/whoami", (req, res) => {
     let output = {
         ipaddress: req.ip,
         language: req.headers["accept-language"],
